@@ -1,2 +1,7 @@
-# ngrx-modules-workshop
-NgRx Global store workshop - module-based application
+# NgRx Workshop
+
+## Steps to start
+
+1. Install npm packages `npm ci`
+2. Start NestJS-based API server `npx nx serve api`
+3. Start Angular Frontend `npx nx serve ngrx-workshop`
