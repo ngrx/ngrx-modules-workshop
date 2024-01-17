@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { SpinnerModule } from '../../common/spinner/spinner.module';
 import { StarsModule } from '../../common/stars/stars.module';
 import { ProductListComponent } from './product-list.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { ProductListComponent } from './product-list.component';
     StarsModule,
     RouterModule,
     SpinnerModule,
+    MatProgressBarModule,
   ],
   declarations: [ProductListComponent],
   exports: [ProductListComponent],

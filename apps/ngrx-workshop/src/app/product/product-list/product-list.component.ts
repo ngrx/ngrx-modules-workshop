@@ -3,11 +3,15 @@ import { map, Observable, shareReplay } from 'rxjs';
 
 import { Rating } from '@angular-monorepo/api-interfaces';
 import { RatingService } from '../rating.service';
-
-import { ProductModel } from '../../model/product';
-import { Store } from '@ngrx/store';
+import { Store, createSelector } from '@ngrx/store';
 import { selectProducts } from '../product.selectors';
 import * as actions from './actions';
+import { productFeature } from '../product.reducer';
+
+const productListVm = createSelector({
+  products: selectProducts,
+  productsRequestStatus: productFeature.selectProductsRequestStatus,
+});
 
 @Component({
   selector: 'ngrx-workshop-home',
@@ -15,8 +19,7 @@ import * as actions from './actions';
   styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
-  products$?: Observable<ProductModel[] | undefined> =
-    this.store.select(selectProducts);
+  readonly productListVm$ = this.store.select(productListVm);
   customerRatings$?: Observable<{ [productId: string]: Rating }>;
 
   constructor(
