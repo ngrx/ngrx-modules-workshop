@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { of } from 'rxjs';
-import { catchError, exhaustMap, filter, map, switchMap } from 'rxjs/operators';
+import { from, of } from 'rxjs';
+import {
+  catchError,
+  exhaustMap,
+  filter,
+  map,
+  mergeMap,
+  switchMap,
+} from 'rxjs/operators';
 
 import { productApiActions } from './actions';
 import * as productListActions from './product-list/actions';
@@ -9,6 +16,7 @@ import { ProductService } from './product.service';
 import { productDetailsActions } from './product-details/actions';
 import { Store } from '@ngrx/store';
 import { selectCurrentProductId } from './product.selectors';
+import { cartActions } from '../cart/actions';
 
 @Injectable()
 export class ProductEffects {
@@ -56,6 +64,30 @@ export class ProductEffects {
               productApiActions.singleProductFetchedError({
                 errorMessage: 'Error Fetching Single Product',
               })
+            )
+          )
+        )
+      )
+    );
+  });
+
+  fetchCartDetailsProducts$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(cartActions.fetchCartItemsSuccess),
+      switchMap(({ cartItems }) =>
+        from(cartItems).pipe(
+          mergeMap(({ productId }) =>
+            this.productService.getProduct(productId).pipe(
+              map((product) =>
+                productApiActions.singleProductFetchedSuccess({ product })
+              ),
+              catchError(() =>
+                of(
+                  productApiActions.singleProductFetchedError({
+                    errorMessage: 'Error Fetching Single Product',
+                  })
+                )
+              )
             )
           )
         )
