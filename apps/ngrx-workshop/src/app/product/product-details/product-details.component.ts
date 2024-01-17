@@ -4,10 +4,10 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Rating } from '@angular-monorepo/api-interfaces';
 import { BehaviorSubject, filter, map, shareReplay, switchMap } from 'rxjs';
 
-import { ProductService } from '../product.service';
 import { RatingService } from '../rating.service';
 import { Store } from '@ngrx/store';
 import { productDetailsActions } from './actions';
+import { selectCurrentProduct } from '../product.selectors';
 
 @Component({
   selector: 'ngrx-workshop-product-details',
@@ -21,9 +21,7 @@ export class ProductDetailsComponent {
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
-  readonly product$ = this.productId$.pipe(
-    switchMap((id) => this.productService.getProduct(id))
-  );
+  readonly product$ = this.store.select(selectCurrentProduct);
 
   protected customerRating$ = new BehaviorSubject<number | undefined>(
     undefined
@@ -31,11 +29,12 @@ export class ProductDetailsComponent {
 
   constructor(
     private readonly router: ActivatedRoute,
-    private readonly productService: ProductService,
     private readonly ratingService: RatingService,
     private readonly store: Store,
     private readonly location: Location
   ) {
+    this.store.dispatch(productDetailsActions.pageOpened());
+
     this.productId$
       .pipe(switchMap((id) => this.ratingService.getRating(id)))
       .subscribe((productRating) =>
