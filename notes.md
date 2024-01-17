@@ -21,3 +21,28 @@
   - [ ] action that affects multiple states
     - [ ] mutiple actions or bring same action to multiple reducers?
   - [ ] how far to go with selectors? each individual slice?
+- [ ] vscode
+  - [ ] possibly readd intellisense addons
+  - [ ] git tree compare
+- [ ] ngrx team
+  - [x] alex okrushko, marko stanimirovic, brandon roberts
+  - [ ] suggestions
+    - [ ] actions
+      - [ ] keep ac tions close to the source
+      - [ ] actions don't target a specific reducer
+        - [ ] are events
+      - [ ] success + error/failure suffix
+    - [ ] createActionGroup
+    - [ ] nx ngrx
+      - [ ] https://www.youtube.com/watch?v=PjssPd83VDc
+- [x] m2
+  - [x] add an action that is dispatched when page is opened
+  - [x] create global state and reducer that reacts to an action
+  - [x] create selector
+  - [x] adjust app module
+- [x] m3
+  - [x] create errors in backend service
+  - [x] create actions for success and error
+  - [x] react to page opened and create an effect for it
+  - [x] handle errors
+  - [x] update state in the reducer
