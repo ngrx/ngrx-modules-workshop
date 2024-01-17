@@ -6,6 +6,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { AppComponent } from './app.component';
 import { CartIconModule } from './cart/cart-icon/cart-icon.module';
 import { RoutingModule } from './router/routing.module';
+import { StoreModule } from '@ngrx/store';
+import { productReducer } from './product/product.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +18,8 @@ import { RoutingModule } from './router/routing.module';
     RoutingModule,
     CartIconModule,
     MatToolbarModule,
+    StoreModule.forRoot({ product: productReducer }),
+    StoreDevtoolsModule.instrument({ maxAge: 50 }),
   ],
   bootstrap: [AppComponent],
 })

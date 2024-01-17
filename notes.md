@@ -1,0 +1,23 @@
+- [x] clone app
+  - [x] get it running
+- [x] 304 Not Modified
+- [x] nestjs
+- [x] shareReplay
+  - [ ] refCount true so no memory leak when component unsubs
+- [ ] questions
+  - [ ] how do you store state in local storage?
+    - [ ] general questions on rehydration
+  - [ ] ngOnInit vs inline vs constructor
+    - [ ] if no input assignment, just do inline/constructor
+    - [ ] optional is required if ngOnInit method
+  - [ ] nested smart components
+    - [ ] nested action sending
+  - [ ] scaling of actions
+    - [ ] good action hygiene still appropriate?
+    - [ ] actions as state transitions
+      - [ ] how much should be aggregated?
+  - [ ] how to handle/test lots and lots of actions
+  - [ ] shared feature state
+  - [ ] action that affects multiple states
+    - [ ] mutiple actions or bring same action to multiple reducers?
+  - [ ] how far to go with selectors? each individual slice?
