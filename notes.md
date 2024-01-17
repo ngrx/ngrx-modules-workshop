@@ -27,9 +27,14 @@
 - [ ] ngrx team
   - [x] alex okrushko, marko stanimirovic, brandon roberts
   - [ ] suggestions
+    - [ ] webpack vs esbuild vs vite (which also uses esbuild)
+    - [ ] typescript style guide
+      - [ ] ts.dev
     - [ ] effects
       - [ ] add an explicit return to help with errors
       - [ ] can just add an inject() to each function
+        - [ ] inject within the body to avoid jest branch issues
+          - [ ] use testbed and/or mock inject with this method
       - [ ] easier to test by just passing mock actions, etc
     - [ ] actions
       - [ ] keep actions close to the source
@@ -64,3 +69,10 @@
   - [x] use selector in cart icon component
   - [x] dispatch the addedToCart from Product Details
   - [x] add Cart Module to App Module
+- [x] m5
+  - [x] adjust getCartProducts() to return observable
+  - [x] create Actions for timerTick, fetchCartItemsSuccess/Error
+  - [x] create effects
+  - [x] add CartEffects to the NgModule
+  - [x] adjust Cart details to use selectors.getCartItems
+  - [x] add to error effects

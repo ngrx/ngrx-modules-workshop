@@ -1,14 +1,13 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Rating } from '@angular-monorepo/api-interfaces';
 import { BehaviorSubject, filter, map, shareReplay, switchMap } from 'rxjs';
+import { Store } from '@ngrx/store';
 
-import { CartService } from '../../cart/cart.service';
 import { ProductService } from '../product.service';
 import { RatingService } from '../rating.service';
-import { Store } from '@ngrx/store';
 import { productDetailsActions } from './actions';
+import { Rating } from '@angular-monorepo/api-interfaces';
 
 @Component({
   selector: 'ngrx-workshop-product-details',
@@ -34,7 +33,6 @@ export class ProductDetailsComponent {
     private readonly router: ActivatedRoute,
     private readonly productService: ProductService,
     private readonly ratingService: RatingService,
-    private readonly cartService: CartService,
     private readonly location: Location,
     private readonly store: Store
   ) {
@@ -62,8 +60,7 @@ export class ProductDetailsComponent {
   }
 
   addToCart(productId: string) {
-    this.store.dispatch(productDetailsActions.addedToCart({ productId }));
-    this.cartService.addProduct(productId);
+    this.store.dispatch(productDetailsActions.addToCartClicked({ productId }));
   }
 
   back() {

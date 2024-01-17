@@ -2,6 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 
 import { CartItem } from '@angular-monorepo/api-interfaces';
 import { productDetailsActions } from '../product/product-details/actions';
+import { cartActions } from './actions';
 
 export const CART_FEATURE_KEY = 'cart';
 
@@ -15,7 +16,7 @@ const initialState: CartState = {
 
 export const cartReducer = createReducer(
   initialState,
-  on(productDetailsActions.addedToCart, (state, { productId }) => {
+  on(productDetailsActions.addToCartClicked, (state, { productId }) => {
     const cartItemsClone = state.cartItems ? [...state.cartItems] : [];
 
     const cartItemIndex = cartItemsClone.findIndex(
@@ -38,5 +39,9 @@ export const cartReducer = createReducer(
       ...state,
       cartItems: cartItemsClone,
     };
-  })
+  }),
+  on(cartActions.fetchCartItemsSuccess, (state, { cartItems }) => ({
+    ...state,
+    cartItems: [...cartItems],
+  }))
 );
