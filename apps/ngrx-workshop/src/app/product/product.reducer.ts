@@ -1,9 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 
-import * as productListActions from './product-list/actions';
 import { ProductModel } from '../model/product';
-
-const { productApiActions } = productListActions;
+import { productApiActions } from './actions';
 
 export interface GlobalState {
   product: ProductState;

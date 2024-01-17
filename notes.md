@@ -27,22 +27,40 @@
 - [ ] ngrx team
   - [x] alex okrushko, marko stanimirovic, brandon roberts
   - [ ] suggestions
+    - [ ] effects
+      - [ ] add an explicit return to help with errors
+      - [ ] can just add an inject() to each function
+      - [ ] easier to test by just passing mock actions, etc
     - [ ] actions
-      - [ ] keep ac tions close to the source
+      - [ ] keep actions close to the source
       - [ ] actions don't target a specific reducer
-        - [ ] are events
+      - [ ] are events
       - [ ] success + error/failure suffix
-    - [ ] createActionGroup
+      - [ ] createActionGroup
+    - [ ] selectors
+      - [ ] abstract
+        - [ ] typing of store
+        - [ ] selecting of state
+        - [ ] memoization
     - [ ] nx ngrx
       - [ ] https://www.youtube.com/watch?v=PjssPd83VDc
 - [x] m2
   - [x] add an action that is dispatched when page is opened
-  - [x] create global state and reducer that reacts to an action
+  - [x] create GlobalState and reducer that reacts to an action
   - [x] create selector
-  - [x] adjust app module
+  - [x] adjust AppModule
 - [x] m3
   - [x] create errors in backend service
-  - [x] create actions for success and error
+  - [x] create actions for Success and Error
   - [x] react to page opened and create an effect for it
   - [x] handle errors
   - [x] update state in the reducer
+- [x] m4
+  - [x] create "State" interfaces in feature reducer
+  - [x] add StoreModule.forFeature to Cart Module
+  - [x] create addedToCart action
+  - [x] create reducer to handle it
+  - [x] create selectors for the feature
+  - [x] use selector in cart icon component
+  - [x] dispatch the addedToCart from Product Details
+  - [x] add Cart Module to App Module

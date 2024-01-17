@@ -4,8 +4,7 @@ import { catchError, exhaustMap, map, of } from 'rxjs';
 
 import { ProductService } from './product.service';
 import * as productListActions from './product-list/actions';
-
-const { productApiActions } = productListActions;
+import { productApiActions } from './actions';
 
 @Injectable()
 export class ProductEffects {

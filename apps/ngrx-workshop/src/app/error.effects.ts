@@ -1,11 +1,9 @@
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-
-import * as productListActions from './product/product-list/actions';
 import { tap } from 'rxjs';
 
-const { productApiActions } = productListActions;
+import { productApiActions } from './product/actions';
 
 export const handleFetchErrors = createEffect(
   (action$ = inject(Actions), snackBar = inject(MatSnackBar)) => {
