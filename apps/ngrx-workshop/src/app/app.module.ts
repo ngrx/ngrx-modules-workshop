@@ -9,6 +9,9 @@ import { RoutingModule } from './router/routing.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { productsReducer } from './product/product.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ProductEffects } from './product/product.effects';
+import * as errorEffects from './error.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +22,7 @@ import { productsReducer } from './product/product.reducer';
     CartIconModule,
     MatToolbarModule,
     StoreModule.forRoot({ product: productsReducer }),
+    EffectsModule.forRoot(ProductEffects, errorEffects),
     StoreDevtoolsModule.instrument({ maxAge: 50 }),
   ],
   bootstrap: [AppComponent],
