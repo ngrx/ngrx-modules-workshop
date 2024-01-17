@@ -7,7 +7,6 @@ import { RatingService } from '../rating.service';
 import { ProductModel } from '../../model/product';
 import { Store } from '@ngrx/store';
 import { selectProducts } from '../product.selectors';
-import { GlobalState } from '../product.reducer';
 import * as actions from './actions';
 
 @Component({
@@ -21,7 +20,7 @@ export class ProductListComponent implements OnInit {
   customerRatings$?: Observable<{ [productId: string]: Rating }>;
 
   constructor(
-    private readonly store: Store<GlobalState>,
+    private readonly store: Store,
     private readonly ratingService: RatingService
   ) {
     this.store.dispatch(actions.productsOpened());

@@ -8,7 +8,7 @@ import { CartIconModule } from './cart/cart-icon/cart-icon.module';
 import { RoutingModule } from './router/routing.module';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { productsReducer } from './product/product.reducer';
+import { productFeature } from './product/product.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './product/product.effects';
 import * as errorEffects from './error.effects';
@@ -22,7 +22,8 @@ import { CartModule } from './cart/cart.module';
     RoutingModule,
     CartIconModule,
     MatToolbarModule,
-    StoreModule.forRoot({ product: productsReducer }),
+    StoreModule.forRoot({}),
+    StoreModule.forFeature(productFeature),
     EffectsModule.forRoot(ProductEffects, errorEffects),
     StoreDevtoolsModule.instrument({ maxAge: 50 }),
     CartModule,
