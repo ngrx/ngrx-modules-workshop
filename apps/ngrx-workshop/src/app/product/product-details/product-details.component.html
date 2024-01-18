@@ -1,30 +1,43 @@
-<ng-container *ngIf="product$ | async as product; else loading">
-  <mat-card>
+<ng-container *ngIf="vm$ | async as vm; else loading">
+  <mat-card *ngIf="vm.product as product">
     <mat-card-title>{{ product.title }}</mat-card-title>
     <mat-card-subtitle>{{ product.price | currency }}</mat-card-subtitle>
     <mat-card-content>
       <img [src]="product.url" />
       <span *ngIf="product.description">{{ product.description }}</span>
-      <mat-progress-bar *ngIf="!product.description" mode="indeterminate"></mat-progress-bar>
+      <mat-progress-bar
+        *ngIf="!product.description"
+        mode="indeterminate"
+      ></mat-progress-bar>
     </mat-card-content>
     <mat-card-actions>
-      <ngrx-workshop-stars [canRate]="true" (ratingChange)="setRating(product.id, $event)"
-        [rated]="customerRating$ | async" [rating]="product.rating">
+      <ngrx-workshop-stars
+        [canRate]="true"
+        (ratingChange)="setRating(product.id, $event)"
+        [rated]="vm.customerRating?.rating"
+        [rating]="product.rating"
+      >
       </ngrx-workshop-stars>
-      <div *ngIf="customerRating$ | async">Your rating</div>
+      <div *ngIf="vm.customerRating?.rating">Your rating</div>
       <div class="space-filler"></div>
       <div class="action-buttons">
-        <button mat-button type="button" (click)="back()">
-          Back
-        </button>
-        <button mat-raised-button color="primary" type="button" (click)="addToCart(product.id)">
+        <button mat-button type="button" (click)="back()">Back</button>
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="addToCart(product.id)"
+        >
           Add to cart
         </button>
       </div>
     </mat-card-actions>
   </mat-card>
 
-  <ngrx-workshop-reviews [productId]="product.id"/>
+  <ngrx-workshop-reviews
+    *ngIf="vm.product as product"
+    [productId]="product.id"
+  />
 </ng-container>
 <ng-template #loading>
   <ngrx-workshop-spinner></ngrx-workshop-spinner>

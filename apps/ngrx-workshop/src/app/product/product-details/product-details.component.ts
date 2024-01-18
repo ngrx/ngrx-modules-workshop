@@ -1,13 +1,16 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Rating } from '@angular-monorepo/api-interfaces';
-import { BehaviorSubject, filter, map, shareReplay, switchMap } from 'rxjs';
 
-import { RatingService } from '../rating.service';
-import { Store } from '@ngrx/store';
+import { Store, createSelector } from '@ngrx/store';
 import { productDetailsActions } from './actions';
 import { selectCurrentProduct } from '../product.selectors';
+import { ratingFeature } from '../rating.reducer';
+
+const productDetailsVm = createSelector({
+  product: selectCurrentProduct,
+  customerRating: ratingFeature.selectCurrentRating,
+});
 
 @Component({
   selector: 'ngrx-workshop-product-details',
@@ -15,47 +18,19 @@ import { selectCurrentProduct } from '../product.selectors';
   styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent {
-  readonly productId$ = this.router.paramMap.pipe(
-    map((params: ParamMap) => params.get('productId')),
-    filter((id: string | null): id is string => id != null),
-    shareReplay({ bufferSize: 1, refCount: true })
-  );
-
-  readonly product$ = this.store.select(selectCurrentProduct);
-
-  protected customerRating$ = new BehaviorSubject<number | undefined>(
-    undefined
-  );
+  readonly vm$ = this.store.select(productDetailsVm);
 
   constructor(
-    private readonly router: ActivatedRoute,
-    private readonly ratingService: RatingService,
     private readonly store: Store,
     private readonly location: Location
   ) {
     this.store.dispatch(productDetailsActions.pageOpened());
-
-    this.productId$
-      .pipe(switchMap((id) => this.ratingService.getRating(id)))
-      .subscribe((productRating) =>
-        this.customerRating$.next(productRating && productRating.rating)
-      );
   }
 
   setRating(productId: string, rating: Rating) {
-    this.ratingService
-      .setRating({ productId, rating })
-      .pipe(
-        map((arr) =>
-          arr.find((productRating) => productId === productRating.productId)
-        ),
-        filter(
-          (productRating): productRating is NonNullable<typeof productRating> =>
-            productRating != null
-        ),
-        map((productRating) => productRating.rating)
-      )
-      .subscribe((newRating) => this.customerRating$.next(newRating));
+    this.store.dispatch(
+      productDetailsActions.productRated({ productId, rating })
+    );
   }
 
   addToCart(productId: string) {

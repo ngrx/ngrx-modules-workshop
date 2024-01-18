@@ -21,7 +21,7 @@
 
         <ngrx-workshop-stars
           [rating]="product.rating"
-          [rated]="(customerRatings$ | async)?.[product.id]"
+          [rated]="vm.customerRatings[product.id]?.rating"
         ></ngrx-workshop-stars>
       </mat-card>
     </a>

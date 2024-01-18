@@ -13,6 +13,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './product/product.effects';
 import * as errorEffects from './error.effects';
 import { CartModule } from './cart/cart.module';
+import { ratingFeature } from './product/rating.reducer';
+import * as ratingEffects from './product/rating.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +26,8 @@ import { CartModule } from './cart/cart.module';
     MatToolbarModule,
     StoreModule.forRoot({}),
     StoreModule.forFeature(productFeature),
-    EffectsModule.forRoot(ProductEffects, errorEffects),
+    StoreModule.forFeature(ratingFeature),
+    EffectsModule.forRoot(ProductEffects, errorEffects, ratingEffects),
     StoreDevtoolsModule.instrument({ maxAge: 50 }),
     CartModule,
   ],
