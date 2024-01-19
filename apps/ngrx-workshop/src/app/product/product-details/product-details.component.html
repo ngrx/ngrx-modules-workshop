@@ -34,10 +34,7 @@
     </mat-card-actions>
   </mat-card>
 
-  <ngrx-workshop-reviews
-    *ngIf="vm.product as product"
-    [productId]="product.id"
-  />
+  <ngrx-workshop-reviews />
 </ng-container>
 <ng-template #loading>
   <ngrx-workshop-spinner></ngrx-workshop-spinner>
